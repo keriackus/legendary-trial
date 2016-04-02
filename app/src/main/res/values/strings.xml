@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Auction</string>
+    <string name="title_activity_main">Home</string>
+
+    <string name="action_example">Example action</string>
+
+    <string name="action_add_item_done">Submit</string>
+    <string name="title_activity_add_item">Submit Item</string>
+    <string name="nothing_to_display">Nothing to Display</string>
+    <string name="error_loading_items">Unable To Load Items</string>
+    <string name="action_logout">logout</string>
+    <string name="action_about">about</string>
+    <string name="title_activity_display_item">Show Item</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="place_bidding">Place Bid</string>
+    <string name="bidding_amount">Bidding amount ($)</string>
+    <string name="error_invalid_bidding_amount">Invalid bidding amount</string>
+    <string name="error_unable_bid_on_item">Bidding failed</string>
+
+</resources>

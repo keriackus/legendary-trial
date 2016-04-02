@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.keriackus.auction" >
+
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+    <!-- To access Google+ APIs: -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!--
+ To retrieve OAuth 2.0 tokens or invalidate tokens to disconnect a user. This disconnect
+     option is required to comply with the Google+ Sign-In developer policies
+    -->
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".presentation.views.activities.LoginActivity"
+            android:label="@string/title_activity_login"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateVisible" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".presentation.views.activities.RegisterActivity"
+            android:label="@string/title_activity_register"
+            android:parentActivityName=".presentation.views.activities.LoginActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateVisible" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.keriackus.auction.presentation.views.activities.LoginActivity" />
+        </activity>
+        <activity
+            android:name=".presentation.views.activities.MainActivity"
+            android:label="@string/title_activity_main"
+            android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".presentation.views.activities.AddItemActivity"
+            android:label="@string/title_activity_add_item"
+            android:parentActivityName=".presentation.views.activities.MainActivity"
+            android:screenOrientation="sensorPortrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.keriackus.auction.presentation.views.activities.MainActivity"
+                android:windowSoftInputMode="adjustPan|stateAlwaysVisible" />
+        </activity>
+        <activity
+            android:name=".presentation.views.activities.DisplayItemActivity"
+            android:label="@string/title_activity_display_item"
+            android:parentActivityName=".presentation.views.activities.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.keriackus.auction.presentation.views.activities.MainActivity" />
+        </activity>
+    </application>
+
+</manifest>

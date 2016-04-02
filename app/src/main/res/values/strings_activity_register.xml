@@ -1,0 +1,12 @@
+<resources>
+    <string name="title_activity_register">Register</string>
+
+
+    <string name="action_register_sign_in">Register and Sign me In.</string>
+
+
+    <string name="prompt_repeat_password">Repeat Password</string>
+    <string name="error_password_mismatch">Password mismatch</string>
+
+    <string name="error_email_already_registered">Email is already registered</string>
+</resources>
