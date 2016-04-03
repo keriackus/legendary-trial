@@ -10,5 +10,7 @@
     <string name="missing_item_description" >Item description can\'t be empty</string>
     <string name="error_adding_item">unable to submit this item</string>
     <string name="missing_item_category">Item Category can\'t be empty</string>
+    <string name="prompt_item_start_date" >Press to choose Auction Start time</string>
+
 
 </resources>

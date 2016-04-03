@@ -5,10 +5,13 @@ import android.support.design.widget.Snackbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.keriackus.auction.R;
 import com.keriackus.auction.presentation.presenters.AddItemPresenter;
+
+import java.util.Date;
 
 public class AddItemActivity extends BaseActivity {
 
@@ -17,18 +20,32 @@ public class AddItemActivity extends BaseActivity {
     EditText priceEditText;
     EditText descriptionEditText;
 
+    TextView dateTextViewChooser;
+    AddItemPresenter presenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
         setupToolbar(true, R.string.title_activity_add_item);
 
+        presenter = new AddItemPresenter(AddItemActivity.this);
+
         titleEditText = (EditText) findViewById(R.id.item_title_edit_text);
         categoryEditText = (EditText) findViewById(R.id.item_category_edit_text);
         priceEditText = (EditText) findViewById(R.id.item_title_price_text);
         descriptionEditText = (EditText) findViewById(R.id.item_description_edit_text);
+
+        dateTextViewChooser = (TextView) findViewById(R.id.item_start_date_text_view);
+
+        dateTextViewChooser.setOnClickListener(presenter);
+
     }
 
+    public void setStartTime(String startTime){
+
+        dateTextViewChooser.setText(startTime);
+    };
     public String getItemTitle() {
         return titleEditText.getText().toString();
     }
@@ -62,7 +79,7 @@ public class AddItemActivity extends BaseActivity {
 
         if (id == R.id.action_add_item_done) {
             setResult(RESULT_OK);
-            new AddItemPresenter(AddItemActivity.this).addItem();
+            presenter.addItem();
 
             return true;
         }

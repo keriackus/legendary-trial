@@ -3,13 +3,15 @@ package com.keriackus.auction.data.entities;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.util.Date;
+
 /**
  * Created by keriackus on 4/2/2016.
  */
 @DatabaseTable
 public class Item extends Entity {
 
-    public static  final String InBidFieldName = "inBid";
+    public static final String InBidFieldName = "inBid";
     public static final String WonFieldName = "won";
     @DatabaseField(generatedId = true)
     long ID;
@@ -32,13 +34,16 @@ public class Item extends Entity {
     @DatabaseField
     public double biddingAmount;
 
+    @DatabaseField
+    public Long startTime;
+
     @DatabaseField(foreign = true)
     public Account auctioneer;
 
-    @DatabaseField (columnName = WonFieldName)
+    @DatabaseField(columnName = WonFieldName)
     public boolean won;
 
-    @DatabaseField (columnName = InBidFieldName)
+    @DatabaseField(columnName = InBidFieldName)
     public boolean inBid;
 
     @Override
