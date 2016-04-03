@@ -20,5 +20,6 @@
     <string name="error_unable_bid_on_item">Bidding failed</string>
     <string name="title_activity_bidding">Bid Started!</string>
     <string name="starts_in">Starts in</string>
+    <string name="missing_item_start_date">Invalid start time</string>
 
 </resources>

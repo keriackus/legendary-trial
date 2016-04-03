@@ -2,6 +2,8 @@ package com.keriackus.auction.presentation.views.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.Snackbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,7 +21,6 @@ public class DisplayItemActivity extends BaseActivity {
 
 
     public static final String ITEM_INTENT_EXTRA_KEY = "item_id";
-    private static final int BID_ACTIVITY_REQUEST_CODE = 1;
 
     PlaceBiddingPresenter presenter;
     EditText biddingAmountEditText;
@@ -48,9 +49,13 @@ public class DisplayItemActivity extends BaseActivity {
         }
     }
 
+    MenuItem actionSubmitBit;
+
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        menu.findItem(R.id.action_submit_bid).setVisible(!auctionedItem.inBid && !auctionedItem.won);
+        actionSubmitBit = menu.findItem(R.id.action_submit_bid);
+        actionSubmitBit.setVisible(!auctionedItem.inBid && !auctionedItem.won);
+        startTimeHandler.sendEmptyMessage(0);
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -64,14 +69,13 @@ public class DisplayItemActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        setStartInText();
     }
 
     private void setStartInText() {
         long afterInMillis = auctionedItem.startTime - Calendar.getInstance().getTimeInMillis();
 
         if (afterInMillis > 0) {
-            String startsAfter = String.format("%02d Hours, %02d Minutes",
+            String startsAfter = String.format("%02d Hours, %02d Minutes, %02d Seconds",
                     TimeUnit.MILLISECONDS.toHours(afterInMillis),
                     TimeUnit.MILLISECONDS.toMinutes(afterInMillis) -
                             TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(afterInMillis)), // The change is in this line
@@ -79,10 +83,23 @@ public class DisplayItemActivity extends BaseActivity {
                             TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(afterInMillis)));
 
             startInEditText.setText(startsAfter);
+            startTimeHandler.sendEmptyMessageDelayed(0, 1000);
         } else {
             startInEditText.setVisibility(View.GONE);
+            biddingAmountEditText.setText("0.0");
+            biddingAmountEditText.setVisibility(View.GONE);
+            actionSubmitBit.setVisible(false);
         }
     }
+
+    Handler startTimeHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            setStartInText();
+        }
+    };
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -95,6 +112,7 @@ public class DisplayItemActivity extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_display_item, menu);
+
 
         return super.onCreateOptionsMenu(menu);
     }

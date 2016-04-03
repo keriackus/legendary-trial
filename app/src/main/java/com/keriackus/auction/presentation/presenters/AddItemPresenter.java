@@ -93,8 +93,14 @@ public class AddItemPresenter extends PresenterImplementation implements View.On
                 @Override
                 public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 
+
                     Calendar c = Calendar.getInstance();
                     c.set(year, monthOfYear, dayOfMonth);
+                    //if chosen date is before today then show error
+                    if (c.getTime().before(Calendar.getInstance().getTime())) {
+                        activity.onError(R.string.missing_item_start_date);
+                        return;
+                    }
                     chosenDate = c.getTime();
 
                     new TimePickerDialog(view.getContext(), new TimePickerDialog.OnTimeSetListener() {
@@ -104,11 +110,16 @@ public class AddItemPresenter extends PresenterImplementation implements View.On
                             c.setTime(chosenDate);
                             c.set(Calendar.HOUR_OF_DAY, hourOfDay);
                             c.set(Calendar.MINUTE, minute);
+                            if(c.getTime().before(Calendar.getInstance().getTime()))
+                            {
+                                activity.onError(R.string.missing_item_start_date);
+                                return;
+                            }
                             itemStartTime = c.getTimeInMillis();
 
                             ((AddItemActivity) activity).setStartTime(c.getTime().toString());
                         }
-                    }, 0, 0, true).show();
+                    }, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), true).show();
                 }
             }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH)).show();
 

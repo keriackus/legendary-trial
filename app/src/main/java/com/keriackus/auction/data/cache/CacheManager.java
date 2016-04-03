@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.j256.ormlite.dao.Dao;
 import com.keriackus.auction.data.entities.Entity;
-import com.keriackus.auction.domain.usecases.GetItemsUseCase;
 import com.keriackus.auction.domain.usecases.UseCaseInterface;
 
 import java.sql.SQLException;

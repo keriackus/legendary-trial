@@ -6,12 +6,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.keriackus.auction.R;
 import com.keriackus.auction.presentation.presenters.AddItemPresenter;
-
-import java.util.Date;
 
 public class AddItemActivity extends BaseActivity {
 
@@ -107,8 +104,12 @@ public class AddItemActivity extends BaseActivity {
                 break;
             case R.string.missing_item_category:
                 categoryEditText.setError(getString(error));
+                break;
+            case R.string.missing_item_start_date:
+                Snackbar.make(dateTextViewChooser, error, Snackbar.LENGTH_LONG).show();
+                break;
             default:
-                Snackbar.make(titleEditText, R.string.error_adding_item, Toast.LENGTH_SHORT).show();
+                Snackbar.make(titleEditText, R.string.error_adding_item, Snackbar.LENGTH_SHORT).show();
         }
     }
 
