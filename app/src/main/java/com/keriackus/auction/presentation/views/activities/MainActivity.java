@@ -20,6 +20,8 @@ import java.util.List;
 public class MainActivity extends BaseActivity {
 
     private final int ADD_ITEM_REQUEST_CODE = 1;
+    public static final int DISPLAY_ITEM_REQUEST_CODE = 2;
+
     FloatingActionButton addItemFab;
     ListView itemsListView;
     Spinner toolbarSpinner;
@@ -91,7 +93,7 @@ public class MainActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == ADD_ITEM_REQUEST_CODE && resultCode == RESULT_OK) {
+        if ((requestCode == DISPLAY_ITEM_REQUEST_CODE || requestCode == ADD_ITEM_REQUEST_CODE) && resultCode == RESULT_OK) {
             presenter.reload();
         }
     }

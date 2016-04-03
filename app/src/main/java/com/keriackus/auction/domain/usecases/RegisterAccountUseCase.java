@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.keriackus.auction.data.cache.CacheManager;
 import com.keriackus.auction.data.entities.Account;
+import com.keriackus.auction.data.entities.Entity;
 import com.keriackus.auction.presentation.presenters.PresenterInterface;
 
 import java.sql.SQLException;
@@ -15,7 +16,7 @@ public class RegisterAccountUseCase extends UseCaseImplementation {
 
     Account account;
 
-    public RegisterAccountUseCase(Context applicationContext,PresenterInterface presenter, Account account) {
+    public RegisterAccountUseCase(Context applicationContext, PresenterInterface presenter, Account account) {
         super(applicationContext, presenter);
         this.account = account;
         this.applicationContext = applicationContext;
@@ -23,19 +24,16 @@ public class RegisterAccountUseCase extends UseCaseImplementation {
 
     @Override
     public void run() {
-        CacheManager cacheManager = CacheManager.getInstance(applicationContext);
+        CacheManager.getInstance(applicationContext).queryById(Account.class, account.getEmail(), this);
+    }
 
-        try {
-            Account cachedAccount = (Account) cacheManager.queryById(Account.class, account.getEmail());
-            if (cachedAccount == null) {
-                cacheManager.createOrUpdate(account);
-                presenter.onSuccess();
-            } else {
-                presenter.onError();
-            }
-        } catch (SQLException e) {
-            presenter.onError(e);
-            e.printStackTrace();
+    @Override
+    public void onFindByIdRequestSuccess(Entity entity) {
+        Account cachedAccount = (Account) entity;
+        if (cachedAccount == null) {
+            CacheManager.getInstance(applicationContext).createOrUpdate(account, this);
+        } else {
+            presenter.onError();
         }
     }
 }

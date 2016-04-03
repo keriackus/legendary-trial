@@ -11,7 +11,7 @@ import java.sql.SQLException;
 /**
  * Created by keriackus on 4/2/2016.
  */
-public class GetItemsUseCase extends  UseCaseImplementation {
+public class GetItemsUseCase extends UseCaseImplementation {
 
     public GetItemsUseCase(Context applicationContext, PresenterInterface presenter) {
         super(applicationContext, presenter);
@@ -19,12 +19,8 @@ public class GetItemsUseCase extends  UseCaseImplementation {
 
     @Override
     public void run() {
-
-        try {
-          presenter.onSuccess(CacheManager.getInstance(applicationContext).queryForAll(Item.class));
-        } catch (SQLException e) {
-            e.printStackTrace();
-            presenter.onError();
-        }
+       CacheManager.getInstance(applicationContext).queryForAll(Item.class, this);
     }
+
+
 }

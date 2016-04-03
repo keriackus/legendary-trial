@@ -13,17 +13,12 @@ import java.sql.SQLException;
  */
 public class GetWonItemsUseCase extends UseCaseImplementation {
 
-        public GetWonItemsUseCase(Context applicationContext, PresenterInterface presenter) {
-                super(applicationContext, presenter);
-        }
+    public GetWonItemsUseCase(Context applicationContext, PresenterInterface presenter) {
+        super(applicationContext, presenter);
+    }
 
-        @Override
-        public void run() {
-                try {
-                        presenter.onSuccess(CacheManager.getInstance(applicationContext).queryForEqual(Item.class, Item.WonFieldName, true));
-                } catch (SQLException e) {
-                        e.printStackTrace();
-                        presenter.onError();
-                }
-        }
+    @Override
+    public void run() {
+        CacheManager.getInstance(applicationContext).queryForEqual(Item.class, Item.WonFieldName, true, this);
+    }
 }
