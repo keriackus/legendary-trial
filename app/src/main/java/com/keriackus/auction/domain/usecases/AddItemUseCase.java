@@ -13,21 +13,15 @@ import java.sql.SQLException;
  */
 public class AddItemUseCase extends UseCaseImplementation {
     Item item;
+
     public AddItemUseCase(Context applicationContext, PresenterInterface presenter, Item item) {
         super(applicationContext, presenter);
         this.item = item;
     }
 
     @Override
-    public void run()  {
-
-        try {
-
-            CacheManager.getInstance(applicationContext).createOrUpdate(item);
-            presenter.onSuccess();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            presenter.onError();
-        }
+    public void run() {
+        CacheManager.getInstance(applicationContext).createOrUpdate(item, AddItemUseCase.this);
     }
+
 }

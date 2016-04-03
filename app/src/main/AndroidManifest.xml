@@ -63,6 +63,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.keriackus.auction.presentation.views.activities.MainActivity" />
         </activity>
+        <activity
+            android:name=".presentation.views.activities.BiddingActivity"
+            android:label="@string/title_activity_bidding"
+            android:parentActivityName=".presentation.views.activities.DisplayItemActivity"
+            android:theme="@style/AppTheme" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.keriackus.auction.presentation.views.activities.DisplayItemActivity" />
+        </activity>
     </application>
 
 </manifest>

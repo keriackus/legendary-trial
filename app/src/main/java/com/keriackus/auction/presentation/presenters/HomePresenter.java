@@ -10,6 +10,7 @@ import com.keriackus.auction.domain.usecases.GetItemsUseCase;
 import com.keriackus.auction.domain.usecases.GetWonItemsUseCase;
 import com.keriackus.auction.presentation.views.activities.BaseActivity;
 import com.keriackus.auction.presentation.views.activities.DisplayItemActivity;
+import com.keriackus.auction.presentation.views.activities.MainActivity;
 
 /**
  * Created by keriackus on 4/2/2016.
@@ -43,7 +44,7 @@ public class HomePresenter extends PresenterImplementation implements AdapterVie
         Item chosenItem = (Item) parent.getItemAtPosition(position);
         Intent i = new Intent(activity, DisplayItemActivity.class);
         i.putExtra(DisplayItemActivity.ITEM_INTENT_EXTRA_KEY, chosenItem);
-        activity.startActivity(i);
+        activity.startActivityForResult(i, MainActivity.DISPLAY_ITEM_REQUEST_CODE);
     }
 
     @Override

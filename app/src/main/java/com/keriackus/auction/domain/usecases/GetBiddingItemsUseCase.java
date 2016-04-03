@@ -17,13 +17,11 @@ public class GetBiddingItemsUseCase extends UseCaseImplementation {
         super(applicationContext, presenter);
     }
 
+
     @Override
     public void run() {
-        try {
-            presenter.onSuccess(CacheManager.getInstance(applicationContext).queryForEqual(Item.class, Item.InBidFieldName, true));
-        } catch (SQLException e) {
-            e.printStackTrace();
-            presenter.onError();
-        }
+        presenter.onSuccess(CacheManager.getInstance(applicationContext).queryForEqual(Item.class, Item.InBidFieldName, true, this));
     }
+
+
 }

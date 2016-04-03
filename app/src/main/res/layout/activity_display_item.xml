@@ -90,6 +90,20 @@
                 android:layout_height="wrap_content">
 
                 <EditText
+                    android:id="@+id/start_in_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:hint="@string/starts_in"
+                    android:inputType="numberDecimal" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
                     android:id="@+id/bid_amount_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -97,6 +111,7 @@
                     android:inputType="numberDecimal"
                     android:textColor="@android:color/holo_red_dark" />
             </android.support.design.widget.TextInputLayout>
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

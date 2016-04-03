@@ -40,7 +40,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
+            android:layout_marginRight="2dp"
+            android:layout_marginBottom="4dp"
             android:src="@drawable/ic_add_white_36dp"
+            app:backgroundTint="@android:color/holo_orange_light"
             app:fabSize="normal" />
     </FrameLayout>
 </LinearLayout>

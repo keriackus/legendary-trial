@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.keriackus.auction.data.cache.CacheManager;
 import com.keriackus.auction.data.entities.Account;
+import com.keriackus.auction.data.entities.Entity;
 import com.keriackus.auction.presentation.presenters.PresenterInterface;
 
 import java.sql.SQLException;
@@ -24,19 +25,19 @@ public class LoginUseCase extends UseCaseImplementation {
     @Override
     public void run() {
         CacheManager cacheManager = CacheManager.getInstance(applicationContext);
+        cacheManager.queryById(Account.class, account.getEmail(), this);
+    }
 
-        try {
-            Account cachedAccount = (Account) cacheManager.queryById(Account.class, account.getEmail());
-            if (cachedAccount == null) {
-                presenter.onError();
-            } else if (!cachedAccount.getPassword().equals(account.getPassword())) {
-                presenter.onError();
-            } else {
-                presenter.onSuccess();
-            }
-        } catch (SQLException e) {
-            presenter.onError(e);
-            e.printStackTrace();
+    @Override
+    public void onFindByIdRequestSuccess(Entity entity) {
+        Account cachedAccount = (Account) entity;
+        if (cachedAccount == null) {
+            presenter.onError();
+        } else if (!cachedAccount.getPassword().equals(account.getPassword())) {
+            presenter.onError();
+        } else {
+            presenter.onSuccess();
         }
+
     }
 }

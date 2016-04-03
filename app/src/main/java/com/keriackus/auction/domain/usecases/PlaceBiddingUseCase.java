@@ -14,6 +14,7 @@ import java.sql.SQLException;
 public class PlaceBiddingUseCase extends UseCaseImplementation {
 
     Item item;
+
     public PlaceBiddingUseCase(Context applicationContext, PresenterInterface presenter, Item item) {
         super(applicationContext, presenter);
         this.item = item;
@@ -21,16 +22,13 @@ public class PlaceBiddingUseCase extends UseCaseImplementation {
 
     @Override
     public void run() {
+        item.inBid = true;
+        CacheManager.getInstance(applicationContext).createOrUpdate(item, this);
+    }
 
-
-        try {
-            item.inBid = true;
-            CacheManager.getInstance(applicationContext).createOrUpdate(item);
-            presenter.onSuccess(item);
-        } catch (SQLException e) {
-            item.inBid = false;
-            presenter.onError(item);
-            e.printStackTrace();
-        }
+    @Override
+    public void onError(Exception e) {
+        item.inBid = false;
+        super.onError(e);
     }
 }
