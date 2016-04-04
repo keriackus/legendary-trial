@@ -3,6 +3,8 @@ package com.keriackus.auction.data.entities;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.util.Calendar;
+
 /**
  * Created by keriackus on 4/2/2016.
  */
@@ -35,7 +37,7 @@ public class Item extends Entity {
 
     @DatabaseField
     public double otherMaximumBiddingAmount;
-    @DatabaseField (columnName = StartTimeFieldName)
+    @DatabaseField(columnName = StartTimeFieldName)
     public Long startTime;
 
     @DatabaseField(foreign = true)
@@ -57,5 +59,16 @@ public class Item extends Entity {
 
     public long getID() {
         return ID;
+    }
+
+    public boolean isWon() {
+        if (isOutOfDate() && biddingAmount > otherMaximumBiddingAmount) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isOutOfDate() {
+        return (startTime < Calendar.getInstance().getTimeInMillis());
     }
 }

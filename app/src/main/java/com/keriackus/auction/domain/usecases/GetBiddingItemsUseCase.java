@@ -6,8 +6,6 @@ import com.keriackus.auction.data.cache.CacheManager;
 import com.keriackus.auction.data.entities.Item;
 import com.keriackus.auction.presentation.presenters.PresenterInterface;
 
-import java.sql.SQLException;
-
 /**
  * Created by keriackus on 4/2/2016.
  */
@@ -20,7 +18,7 @@ public class GetBiddingItemsUseCase extends UseCaseImplementation {
 
     @Override
     public void run() {
-        presenter.onSuccess(CacheManager.getInstance(applicationContext).queryForEqual(Item.class, Item.InBidFieldName, true, this));
+        CacheManager.getInstance(applicationContext).queryForEqual(Item.class, Item.InBidFieldName, true, this);
     }
 
 

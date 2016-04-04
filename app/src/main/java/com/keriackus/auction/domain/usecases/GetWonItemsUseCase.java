@@ -8,7 +8,6 @@ import com.keriackus.auction.data.entities.Item;
 import com.keriackus.auction.presentation.presenters.PresenterInterface;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -22,7 +21,7 @@ public class GetWonItemsUseCase extends UseCaseImplementation {
 
     @Override
     public void run() {
-        CacheManager.getInstance(applicationContext).queryForEqual(Item.class, Item.InBidFieldName, true, this);
+        CacheManager.getInstance(applicationContext).queryForAll(Item.class, this);
     }
 
     @Override
@@ -32,11 +31,10 @@ public class GetWonItemsUseCase extends UseCaseImplementation {
         for (Entity entity : entities) {
             item = (Item) entity;
 
-            if (item.startTime < Calendar.getInstance().getTimeInMillis()) {
-                if (item.biddingAmount > item.otherMaximumBiddingAmount) {
-                    wonItems.add(item);
-                }
+            if (item.isWon()) {
+                wonItems.add(item);
             }
+
         }
         presenter.onSuccess(wonItems);
     }

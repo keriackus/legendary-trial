@@ -95,7 +95,9 @@
                     android:layout_height="wrap_content"
                     android:enabled="false"
                     android:hint="@string/starts_in"
-                    android:inputType="numberDecimal" />
+                    android:inputType="numberDecimal"
+                    android:text="00:00:00"
+                    android:textColor="@android:color/holo_blue_dark" />
             </android.support.design.widget.TextInputLayout>
 
 
@@ -110,6 +112,21 @@
                     android:hint="@string/bidding_amount"
                     android:inputType="numberDecimal"
                     android:textColor="@android:color/holo_red_dark" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/selling_amount_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:hint="@string/selling_amount"
+                    android:inputType="numberDecimal"
+                    android:visibility="gone" />
             </android.support.design.widget.TextInputLayout>
 
         </LinearLayout>

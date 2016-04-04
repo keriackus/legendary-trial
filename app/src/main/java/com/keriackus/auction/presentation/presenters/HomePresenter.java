@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.keriackus.auction.data.entities.Item;
+import com.keriackus.auction.domain.usecases.BiddingBot;
 import com.keriackus.auction.domain.usecases.GetBiddingItemsUseCase;
 import com.keriackus.auction.domain.usecases.GetItemsUseCase;
 import com.keriackus.auction.domain.usecases.GetWonItemsUseCase;
@@ -70,16 +71,28 @@ public class HomePresenter extends PresenterImplementation implements AdapterVie
     }
 
     public void reload() {
-        switch (listingType) {
-            case ALL:
-                loadAllItems();
-                break;
-            case WON:
-                loadWonItems();
-                break;
-            case BIDDING:
-                loadBiddingItems();
-                break;
-        }
+
+        new BiddingBot(activity.getApplicationContext(), new PresenterInterface() {
+            @Override
+            public void onSuccess(Object... params) {
+                switch (listingType) {
+                    case ALL:
+                        loadAllItems();
+                        break;
+                    case WON:
+                        loadWonItems();
+                        break;
+                    case BIDDING:
+                        loadBiddingItems();
+                        break;
+                }
+            }
+
+            @Override
+            public void onError(Object... params) {
+                int x = 22;
+            }
+        }).run();
+
     }
 }

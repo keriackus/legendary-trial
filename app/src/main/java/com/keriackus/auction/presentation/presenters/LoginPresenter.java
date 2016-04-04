@@ -8,6 +8,7 @@ import com.keriackus.auction.data.entities.Account;
 import com.keriackus.auction.domain.usecases.LoginUseCase;
 import com.keriackus.auction.presentation.views.activities.BaseActivity;
 import com.keriackus.auction.presentation.views.activities.LoginActivity;
+import com.keriackus.auction.presentation.views.util.Validators;
 
 /**
  * Created by keriackus on 4/1/2016.
@@ -65,11 +66,11 @@ public class LoginPresenter extends PresenterImplementation implements View.OnCl
 
 
     private boolean isEmailValid(String email) {
-        return email.contains("@");
+        return Validators.isValidEmail(email);
     }
 
     private boolean isPasswordValid(String password) {
-        return password.length() > 4;
+        return  Validators.isValidPassword(password);
     }
 
     @Override

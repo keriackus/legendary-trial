@@ -26,6 +26,7 @@ public class DisplayItemActivity extends BaseActivity {
     EditText biddingAmountEditText;
     EditText startInEditText;
     Item auctionedItem;
+    EditText sellingAmountEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,14 +39,30 @@ public class DisplayItemActivity extends BaseActivity {
         ((EditText) findViewById(R.id.item_category_edit_text)).setText(auctionedItem.category);
         ((EditText) findViewById(R.id.item_description_edit_text)).setText(auctionedItem.description);
         ((EditText) findViewById(R.id.item_title_edit_text)).setText(auctionedItem.name);
-        ((EditText) findViewById(R.id.item_title_price_text)).setText(String.valueOf(auctionedItem.estimatePrice));
+        ((EditText) findViewById(R.id.item_title_price_text)).setText(String.valueOf(String.format("%.2f", auctionedItem.estimatePrice)));
 
         biddingAmountEditText = (EditText) findViewById(R.id.bid_amount_edit_text);
         startInEditText = (EditText) findViewById(R.id.start_in_edit_text);
+        sellingAmountEditText = (EditText) findViewById(R.id.selling_amount_edit_text);
 
-        if (auctionedItem.won || auctionedItem.inBid) {
+        setBiddingAmountEditText();
+        setSellingAmountEditText();
+    }
+
+    private void setBiddingAmountEditText() {
+        if (auctionedItem.isWon() || auctionedItem.inBid) {
             biddingAmountEditText.setText(String.valueOf(auctionedItem.biddingAmount));
             biddingAmountEditText.setEnabled(false);
+        }
+    }
+
+    private void setSellingAmountEditText() {
+        if (auctionedItem.isOutOfDate()) {
+            double sellingAmount = Math.max(auctionedItem.biddingAmount, auctionedItem.otherMaximumBiddingAmount) ;
+            if (sellingAmount > 0) {
+                sellingAmountEditText.setText(String.format("%.2f", sellingAmount));
+                sellingAmountEditText.setVisibility(View.VISIBLE);
+            }
         }
     }
 
@@ -54,7 +71,13 @@ public class DisplayItemActivity extends BaseActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         actionSubmitBit = menu.findItem(R.id.action_submit_bid);
-        actionSubmitBit.setVisible(!auctionedItem.inBid && !auctionedItem.won);
+        if (auctionedItem.inBid) {
+            actionSubmitBit.setEnabled(false);
+            actionSubmitBit.setTitle(R.string.in_bidding);
+        } else if (auctionedItem.isWon()) {
+            actionSubmitBit.setEnabled(false);
+            actionSubmitBit.setTitle(R.string.it_is_yours);
+        }
         startTimeHandler.sendEmptyMessage(0);
         return super.onPrepareOptionsMenu(menu);
     }
@@ -78,18 +101,29 @@ public class DisplayItemActivity extends BaseActivity {
             String startsAfter = String.format("%02d Hours, %02d Minutes, %02d Seconds",
                     TimeUnit.MILLISECONDS.toHours(afterInMillis),
                     TimeUnit.MILLISECONDS.toMinutes(afterInMillis) -
-                            TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(afterInMillis)), // The change is in this line
+                            TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(afterInMillis)),
                     TimeUnit.MILLISECONDS.toSeconds(afterInMillis) -
                             TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(afterInMillis)));
 
             startInEditText.setText(startsAfter);
             startTimeHandler.sendEmptyMessageDelayed(0, 1000);
         } else {
-            startInEditText.setVisibility(View.GONE);
-            biddingAmountEditText.setText("0.0");
-            biddingAmountEditText.setVisibility(View.GONE);
-            actionSubmitBit.setVisible(false);
+            auctionedItemHasBecomeOutOfDate();
         }
+    }
+
+    private void auctionedItemHasBecomeOutOfDate() {
+        startInEditText.setVisibility(View.GONE);
+        biddingAmountEditText.setText("0.0");
+        biddingAmountEditText.setVisibility(View.GONE);
+        //  actionSubmitBit.setVisible(false);
+        actionSubmitBit.setEnabled(false);
+        if (auctionedItem.isWon()) {
+            actionSubmitBit.setTitle(R.string.it_is_yours);
+        } else {
+            actionSubmitBit.setTitle(R.string.sold);
+        }
+        setSellingAmountEditText();
     }
 
     Handler startTimeHandler = new Handler() {
