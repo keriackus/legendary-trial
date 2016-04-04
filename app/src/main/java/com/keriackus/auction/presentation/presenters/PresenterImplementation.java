@@ -6,7 +6,7 @@ import com.keriackus.auction.presentation.views.activities.BaseActivity;
 /**
  * Created by keriackus on 4/1/2016.
  */
-public abstract class PresenterImplementation  implements PresenterInterface{
+public class PresenterImplementation implements PresenterInterface {
 
     protected BaseActivity activity;
     protected UseCaseImplementation useCase;
@@ -15,5 +15,13 @@ public abstract class PresenterImplementation  implements PresenterInterface{
         this.activity = view;
     }
 
+    @Override
+    public void onError(Object... params) {
+        activity.onError(0);
+    }
 
+    @Override
+    public void onSuccess(Object... params) {
+        activity.onUpdate(params);
+    }
 }

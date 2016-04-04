@@ -57,7 +57,7 @@ public class BiddingBot extends UseCaseImplementation {
 
     @Override
     public void onQueryRequestSuccess(List<Entity> entities) {
-        Item item = null;
+        Item item;
         for (Entity entity : entities) {
             if (random.nextBoolean() && random.nextBoolean()) {
                 item = (Item) entity;

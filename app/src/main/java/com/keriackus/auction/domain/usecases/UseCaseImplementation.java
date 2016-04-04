@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by keriackus on 4/1/2016.
  */
-public abstract class UseCaseImplementation implements UseCaseInterface {
+public  class UseCaseImplementation implements UseCaseInterface {
 
     protected Context applicationContext;
     protected PresenterInterface presenter;
@@ -24,6 +24,11 @@ public abstract class UseCaseImplementation implements UseCaseInterface {
     @Override
     public void onError(Exception e) {
         presenter.onError(e);
+    }
+
+    @Override
+    public void run() {
+
     }
 
     @Override
