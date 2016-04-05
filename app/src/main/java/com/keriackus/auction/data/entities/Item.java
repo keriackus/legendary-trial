@@ -11,6 +11,14 @@ import java.util.Calendar;
 @DatabaseTable
 public class Item extends Entity {
 
+    public Item(String category, String name, String description, double estimatePrice, Long startTime) {
+        this.category = category;
+        this.name = name;
+        this.description = description;
+        this.estimatePrice = estimatePrice;
+        this.startTime = startTime;
+    }
+
     public static final String StartTimeFieldName = "startTime";
     public static final String InBidFieldName = "inBid";
     public static final String WonFieldName = "won";
@@ -26,8 +34,6 @@ public class Item extends Entity {
     @DatabaseField
     public String description;
 
-    @DatabaseField
-    public String thumbPath;
 
     @DatabaseField
     public double estimatePrice;
@@ -40,17 +46,13 @@ public class Item extends Entity {
     @DatabaseField(columnName = StartTimeFieldName)
     public Long startTime;
 
-    @DatabaseField(foreign = true)
-    public Account auctioneer;
-
-    @DatabaseField(columnName = WonFieldName)
-    public boolean won;
-
-    @DatabaseField
-    public boolean lost;
 
     @DatabaseField(columnName = InBidFieldName)
     public boolean inBid;
+
+    public Item() {
+
+    }
 
     @Override
     public String toString() {

@@ -11,6 +11,7 @@ import com.keriackus.auction.data.entities.Account;
 import com.keriackus.auction.data.entities.Item;
 
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,6 +47,86 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         try {
             TableUtils.createTable(connectionSource, Account.class);
             TableUtils.createTable(connectionSource, Item.class);
+
+            insertTestData();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void insertTestData() {
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.MINUTE, 15);
+
+        Item item;
+        try {
+            item = new Item("prints", "Keith Hairing Chair", "A very rare Print", 400.0, c.getTimeInMillis());
+            getDao(Item.class).createOrUpdate(item);
+
+            item = new Item("prints", "Bansky signed print", "in a very good condition", 300.0, c.getTimeInMillis());
+            getDao(Item.class).createOrUpdate(item);
+
+            item = new Item("prints", "Jasper Johns", "Call +9783040203 for more information", 250.0, c.getTimeInMillis());
+            getDao(Item.class).createOrUpdate(item);
+
+            c.add(Calendar.MINUTE, -10);
+
+            item = new Item("prints", "Andy Warhol Cow", "One Of a Kind", 780, c.getTimeInMillis());
+            getDao(Item.class).createOrUpdate(item);
+
+            c.add(Calendar.MINUTE, 110);
+
+            item = new Item("prints", "Tattoo Band Sticker", "condition and state upon bidding request", 20, c.getTimeInMillis());
+            getDao(Item.class).createOrUpdate(item);
+
+            item = new Item("prints", "Joan miro", "You don't want to miss this", 250.0, c.getTimeInMillis());
+            getDao(Item.class).createOrUpdate(item);
+
+
+            c.add(Calendar.DAY_OF_YEAR, 1);
+
+            item = new Item("Jewelry", "Deco Diamond Ring", "Very beautiful ring for your woman", 1400, c.getTimeInMillis());
+            getDao(Item.class).createOrUpdate(item);
+
+
+            item = new Item("Jewelry", "Lot of 13 bracelets", "Call us on +212328282 for more info", 13, c.getTimeInMillis());
+            getDao(Item.class).createOrUpdate(item);
+
+
+            item = new Item("Jewelry", "Graff Diamong Necklace", "One Of the rarest", 560, c.getTimeInMillis());
+            getDao(Item.class).createOrUpdate(item);
+
+            c = Calendar.getInstance();
+            c.add(Calendar.HOUR, 1);
+            item = new Item("Vases & Pots", "White Porcelain Vase", "a piece of art, place your bidding now!", 450, c.getTimeInMillis());
+            getDao(Item.class).createOrUpdate(item);
+
+            item = new Item("Vases & Pots", "Shibyama Vases", "2 Japanese Vases", 78, c.getTimeInMillis());
+            getDao(Item.class).createOrUpdate(item);
+
+            c = Calendar.getInstance();
+            c.add(Calendar.MINUTE, 20);
+            item = new Item("Vases & Pots", "Some Cool Vase", "an ancient Vase that you should start bidding on", 900, c.getTimeInMillis());
+            getDao(Item.class).createOrUpdate(item);
+
+            item = new Item("Vases & Pots", "Gordon Pot", "From the movie lord of the rings", 213, c.getTimeInMillis());
+            getDao(Item.class).createOrUpdate(item);
+
+
+            c = Calendar.getInstance();
+            c.add(Calendar.DAY_OF_YEAR, 1);
+            item = new Item("Cloths", "A green dress", "used dress from the middle ages", 120, c.getTimeInMillis());
+            getDao(Item.class).createOrUpdate(item);
+
+            item = new Item("Cloths", "Shoes", "Christiano Ronaldo's first Shoes", 1293, c.getTimeInMillis());
+            getDao(Item.class).createOrUpdate(item);
+
+            item = new Item("Book cases", "3 shelves book case", "A very practical book case for a very cheep price", 8, c.getTimeInMillis());
+            getDao(Item.class).createOrUpdate(item);
+
+            item = new Item("Cloths", "Jacket", "lke Nina Gomez' Jacked", 5000, c.getTimeInMillis());
+            getDao(Item.class).createOrUpdate(item);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
