@@ -63,7 +63,6 @@ public class TestCacheManager extends ActivityInstrumentationTestCase2 {
         cacheManager.queryForAll(Item.class, useCase);
 
         assertThat(true, is(false));
-
     }
 
 }

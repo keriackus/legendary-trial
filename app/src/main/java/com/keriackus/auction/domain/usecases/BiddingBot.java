@@ -39,7 +39,6 @@ public class BiddingBot extends UseCaseImplementation {
         double minX = 0.5d;
         double maxX = 2.00d;
 
-
         double finalX = random.nextDouble() * (maxX - minX) + minX;
         return finalX;
     }
