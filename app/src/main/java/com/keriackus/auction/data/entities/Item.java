@@ -56,7 +56,7 @@ public class Item extends Entity {
 
     @Override
     public String toString() {
-        return (name + "\n" + estimatePrice + "$");
+        return (name + ": " + estimatePrice + "$");
     }
 
     public long getID() {

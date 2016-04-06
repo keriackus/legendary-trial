@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Auction</string>
+    <string name="app_name">Auctioneers</string>
     <string name="title_activity_main">Home</string>
 
     <string name="action_example">Example action</string>
@@ -25,5 +25,7 @@
     <string name="in_bidding">In bidding</string>
     <string name="it_is_yours">You Own This</string>
     <string name="selling_amount">Selling price ($)</string>
+    <string name="won">Won</string>
+    <string name="available">available</string>
 
 </resources>

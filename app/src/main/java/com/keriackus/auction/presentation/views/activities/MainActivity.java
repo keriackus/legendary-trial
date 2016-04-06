@@ -16,6 +16,7 @@ import com.keriackus.auction.data.entities.Item;
 import com.keriackus.auction.domain.usecases.BiddingBot;
 import com.keriackus.auction.presentation.presenters.HomePresenter;
 import com.keriackus.auction.presentation.presenters.PresenterInterface;
+import com.keriackus.auction.presentation.views.adapters.ItemsAdapter;
 
 import java.util.List;
 
@@ -48,7 +49,7 @@ public class MainActivity extends BaseActivity {
                 startActivityForResult(new Intent(MainActivity.this, AddItemActivity.class), ADD_ITEM_REQUEST_CODE);
             }
         });
-        
+
     }
 
     private void runBiddingBot() {
@@ -85,8 +86,8 @@ public class MainActivity extends BaseActivity {
             itemsListView.setEmptyView(findViewById(R.id.main_items_list_empty_view));
         }
         List<Item> items = (List<Item>) params[0];
-        itemsListView.setAdapter(new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, items));
-
+        //    itemsListView.setAdapter(new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, items));
+        itemsListView.setAdapter(new ItemsAdapter(getApplicationContext(), items));
         runBiddingBot();
     }
 
