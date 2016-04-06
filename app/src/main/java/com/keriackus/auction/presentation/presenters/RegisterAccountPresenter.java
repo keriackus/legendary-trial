@@ -49,12 +49,22 @@ public class RegisterAccountPresenter extends PresenterImplementation implements
         boolean cancel = false;
         View focusView = null;
 
+        if (TextUtils.isEmpty(password)) {
+            registerActivity.mPasswordView.setError(registerActivity.getString(R.string.error_field_required));
+            focusView = registerActivity.mPasswordView;
+            cancel = true;
+        }
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
             registerActivity.mPasswordView.setError(registerActivity.getString(R.string.error_invalid_password));
             focusView = registerActivity.mPasswordView;
             cancel = true;
         }
 
+        if (TextUtils.isEmpty(passwordRepeated)) {
+            registerActivity.mRepeatPasswordView.setError(registerActivity.getString(R.string.error_field_required));
+            focusView = registerActivity.mRepeatPasswordView;
+            cancel = true;
+        }
         if (!TextUtils.isEmpty(passwordRepeated) && !password.equals(passwordRepeated)) {
             registerActivity.mRepeatPasswordView.setError(registerActivity.getString(R.string.error_password_mismatch));
             focusView = registerActivity.mRepeatPasswordView;
